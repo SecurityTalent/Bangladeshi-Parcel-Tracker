@@ -94,7 +94,7 @@ Server will run at http://localhost:3000
 
 ## Frontend Screenshot
 
-![Pathao Delivery Tracking POC](POC/Pathao\ Delivery\ Tracking\ POC.png)
+![Pathao Delivery Tracking POC](https://raw.githubusercontent.com/SecurityTalent/Bangladeshi-Parcel-Tracker/refs/heads/main/POC/Pathao%20Delivery%20Tracking%20POC.png)
 
 
 # Backend Endpoints
