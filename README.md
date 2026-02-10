@@ -1,6 +1,6 @@
 # Bangladeshi Parcel Tracker
 
-A fully working Bangladeshi Parcel Tracker built with JavaScript (Node.js + HTML/JS/CSS). Supports all major Bangladeshi couriers: Redx, Steadfast, Pathao, Rokomari, Sundarban. This tracker can be run locally and handles CORS automatically.
+A fully working Bangladeshi Parcel Tracker built with JavaScript (Node.js + HTML/JS/CSS). Supports all major Bangladeshi couriers: `Redx, Steadfast, Pathao, Rokomari, Sundarban.` This tracker can be run locally and handles CORS automatically.
 
 # Features
 - 🚚 Track parcels from `Redx, Steadfast, Pathao, Rokomari, Sundarban`
