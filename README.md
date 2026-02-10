@@ -30,7 +30,8 @@ cd Bangladeshi-Parcel-Tracker
 ```
 2. **Install dependencies:**
 ```bash
-npm install express axios cors
+npm install
+# npm install express axios cors
 ```
 2. **Run the server:**
 ```bash
