@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bangladeshi Parcel Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Bangladeshi Parcel Tracker</h1>
+    <form id="trackerForm">
+      <label for="courier">Select Courier:</label>
+      <select id="courier" required>
+        <option value="">--Choose Courier--</option>
+        <option value="redx">Redx</option>
+        <option value="steadfast">Steadfast</option>
+        <option value="pathao">Pathao</option>
+        <option value="rokomari">Rokomari</option>
+        <option value="sundarban">Sundarban</option>
+      </select>
+
+      <label for="trackingNumber">Tracking Number:</label>
+      <input type="text" id="trackingNumber" placeholder="Enter Tracking Number" required>
+
+      <label for="phone">Phone Number (if required):</label>
+      <input type="text" id="phone" placeholder="Enter Phone Number">
+
+      <button type="submit">Track</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
