@@ -7,6 +7,11 @@ body {
   font-size: 20px;
 }
 
+.container img {
+	width: 214px;
+	margin: auto;
+	display: block;
+}
 .container {
   max-width: 600px;
   margin: 50px auto;
@@ -56,4 +61,5 @@ button:hover {
   background: #e9ecef;
   border-radius: 5px;
   white-space: pre-wrap;
+  overflow: auto;
 }
