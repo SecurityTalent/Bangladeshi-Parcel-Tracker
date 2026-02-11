@@ -1,151 +1,310 @@
-# Bangladeshi Parcel Tracker
 
-A fully working Bangladeshi Parcel Tracker built with JavaScript (Node.js + HTML/JS/CSS). Supports all major Bangladeshi couriers: `Redx, Steadfast, Pathao, Rokomari, Sundarban.` This tracker can be run locally and handles CORS automatically.
+# 📦 Bangladeshi Parcel Tracker (Full Stack Example)
+A JavaScript library to track parcels from major Bangladeshi courier services:
+`Redx, Steadfast, Pathao, Rokomari, Sundarban.`
 
-# Features
-- 🚚 Track parcels from `Redx, Steadfast, Pathao, Rokomari, Sundarban`
-- 📦 Unified tracking interface
-- ⏱️ View detailed parcel journey and current status
-- 🔄 Real-time API integration
-- 🛠️ Easy to run locally with `Node.js`
+This project demonstrates how to use the **bangladeshi-parcel-tracker** npm package with a full stack setup:
 
-# Supported Couriers
-| Courier       | Description                                   |
-| ------------- | --------------------------------------------- |
-| **Redx**      | Leading courier service in Bangladesh         |
-| **Steadfast** | Reliable delivery solutions                   |
-| **Pathao**    | Fast and efficient courier service            |
-| **Rokomari**  | Book and product delivery specialist          |
-| **Sundarban** | Comprehensive logistics and courier solutions |
+- ✅ Node.js + Express Backend
+- ✅ React (Vite) Frontend
+- ✅ API-based tracking
+- ✅ Form-based tracking input
+- ✅ CORS enabled
 
+Supports:
 
-# Installation
-## Backend (Node.js)
+- Redx
+- Steadfast
+- Pathao
+- Rokomari
+- Sundarban
 
-1. **Clone the repository:**
+---
+
+# 📁 Project Structure
+
+```
+bangladeshi-parcel-tracker-app/
+│
+├── backend/
+│   ├── node_modules/
+│   ├── server.js
+│   ├── package.json
+│   └── package-lock.json
+│
+└── frontend/
+    ├── node_modules/
+    ├── public/
+    ├── src/
+    │   ├── App.jsx
+    │   ├── main.jsx
+    │   └── index.css
+    │
+    ├── index.html
+    ├── vite.config.js
+    ├── package.json
+    └── package-lock.json
+```
+
+---
+
+# 🖥️ Backend Setup (Express API)
+
+## 1️⃣ Create Backend Folder
 
 ```bash
-git clone https://github.com/SecurityTalent/Bangladeshi-Parcel-Tracker.git
-cd Bangladeshi-Parcel-Tracker
+mkdir backend
+cd backend
+npm init -y
 ```
-2. **Install dependencies:**
+
+## 2️⃣ Install Dependencies
+
 ```bash
-npm install
-# npm install express axios cors
+npm install express cors bangladeshi-parcel-tracker
 ```
-2. **Run the server:**
+
+## 3️⃣ Create `server.js`
+
+```js
+import express from "express";
+import cors from "cors";
+import tracker from "bangladeshi-parcel-tracker";
+
+const app = express();
+const PORT = 3000;
+
+app.use(cors());
+app.use(express.json());
+
+// Redx
+app.get("/track/redx/:trackingNumber", async (req, res) => {
+  try {
+    const data = await tracker.redx(req.params.trackingNumber);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Steadfast
+app.get("/track/steadfast/:trackingNumber", async (req, res) => {
+  try {
+    const data = await tracker.steadfast(req.params.trackingNumber);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Pathao
+app.get("/track/pathao/:trackingNumber/:phone", async (req, res) => {
+  try {
+    const { trackingNumber, phone } = req.params;
+    const data = await tracker.pathao(trackingNumber, phone);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Rokomari
+app.get("/track/rokomari/:trackingNumber/:phone", async (req, res) => {
+  try {
+    const { trackingNumber, phone } = req.params;
+    const data = await tracker.rokomari(trackingNumber, phone);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// Sundarban
+app.get("/track/sundarban/:trackingNumber", async (req, res) => {
+  try {
+    const data = await tracker.sundarban(req.params.trackingNumber);
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
+```
+
+---
+
+## 4️⃣ Run Backend
+
 ```bash
 node server.js
 ```
-Server will run at http://localhost:3000
 
-## Frontend
-`Open index.html in your browser`. This frontend connects to the backend server to fetch parcel data.
+Backend runs at:
 
-## Usage
-- Open index.html
-- Select a courier
-- Enter tracking number (and phone number if required)
-- Click Track
-- JSON response will display tracking information
+```
+http://localhost:3000
+```
 
+---
 
-# Sample Pathao Tracking Example
-- Select Courier: `Pathao`
-- Tracking Number: `DM0902269TUGST`
-- Phone Number: `015111944**`
+# ⚛️ Frontend Setup (React + Vite)
 
-## JSON Response
-```json
-{
-  "message": "Order information",
-  "type": "success",
-  "code": 200,
-  "data": {
-    "order": {
-      "order_id": 164119312,
-      "consignment": "DM0902269TUGST",
-      "order_type_id": 1,
-      "collectable_amount": 5000,
-      "transfer_status": "In-Transit",
-      "transfer_status_updated_at": "10 Feb, 2026 5:23 AM",
-      "merchant_logo": "https://cdn.pathao.com/hermes/hermes_U7PSsSZEj8YsCAbp1730632745.png",
-      "created_at": "Feb 9, 2026 6:51 PM",
-      "order_description": "MTP-VD01D-3E2VUDF",
-      "cash_on_delivery": "Yes",
-      "recipient_name": "PiaL",
-      "recipient_address": "Ghosher Ghat Bridge, Sriram Kandi, Tungipara, Gopalganj",
-      "merchant_name": "M S International",
-      "merchant_address": "66/A Shama Complex, 6th Floor, Naya Paltan, Dhaka-1000",
-      "estimated_date": "Feb 12-13, 2026"
-    },
-    "state": {
-      "name": "In-Transit"
-    },
-    "log": [
-      {
-        "desc": "New order pickup requested",
-        "created_at": "Feb 9, 2026 6:51 PM"
-      }
-    ]
-  }
+## 1️⃣ Create React App
+
+```bash
+npm create vite@latest frontend
+cd frontend
+npm install
+```
+
+Choose:
+- Framework: React
+- Variant: JavaScript
+
+---
+
+## 2️⃣ Replace `src/App.jsx`
+
+```jsx
+import { useState } from "react";
+
+function App() {
+  const [trackingNumber, setTrackingNumber] = useState("");
+  const [phone, setPhone] = useState("");
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setData(null);
+
+    try {
+      const res = await fetch(
+        `http://localhost:3000/track/pathao/${trackingNumber}/${phone}`
+      );
+      const json = await res.json();
+      setData(json);
+    } catch (err) {
+      console.error(err);
+    }
+
+    setLoading(false);
+  };
+
+  return (
+    <div style={{ padding: "40px", fontFamily: "Arial" }}>
+      <h1>📦 Parcel Tracking</h1>
+
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Tracking Number"
+          value={trackingNumber}
+          onChange={(e) => setTrackingNumber(e.target.value)}
+          required
+        />
+
+        <input
+          type="text"
+          placeholder="Phone Number"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          required
+        />
+
+        <button type="submit">Track</button>
+      </form>
+
+      {loading && <p>Loading...</p>}
+
+      {data && data.data && (
+        <div style={{ marginTop: "20px" }}>
+          <h2>Tracking Result</h2>
+          <p>Status: {data.data.order.transfer_status}</p>
+          <p>Recipient: {data.data.order.recipient_name}</p>
+          <p>Address: {data.data.order.recipient_address}</p>
+          <p>Estimated Delivery: {data.data.order.estimated_date}</p>
+        </div>
+      )}
+    </div>
+  );
 }
 
+export default App;
 ```
 
-## Frontend Screenshot
+---
 
-![Pathao Delivery Tracking POC](https://raw.githubusercontent.com/SecurityTalent/Bangladeshi-Parcel-Tracker/refs/heads/main/POC/Pathao%20Delivery%20Tracking%20POC.png)
+## 3️⃣ Run Frontend
 
+```bash
+npm run dev
+```
 
-# Backend Endpoints
-| Endpoint                      | Method | Description                                 |
-| ----------------------------- | ------ | ------------------------------------------- |
-| `/redx/:tracking_number`      | GET    | Fetch Redx parcel info                      |
-| `/steadfast/:tracking_number` | GET    | Fetch Steadfast parcel info                 |
-| `/pathao`                     | POST   | Fetch Pathao parcel info (requires phone)   |
-| `/rokomari`                   | POST   | Fetch Rokomari parcel info (requires phone) |
-| `/sundarban`                  | POST   | Fetch Sundarban parcel info                 |
+Frontend runs at:
 
-## Frontend JavaScript Usage
+```
+http://localhost:5173
+```
+
+---
+
+# 🔄 How It Works
+
+1. User enters tracking number & phone.
+2. React sends request to backend.
+3. Backend calls `bangladeshi-parcel-tracker`.
+4. Backend returns JSON.
+5. React displays parcel information.
+
+---
+
+# 📌 Available Backend Endpoints
+
+| Endpoint | Method | Description |
+|-----------|--------|------------|
+| /track/redx/:trackingNumber | GET | Fetch Redx parcel |
+| /track/steadfast/:trackingNumber | GET | Fetch Steadfast parcel |
+| /track/pathao/:trackingNumber/:phone | GET | Fetch Pathao parcel |
+| /track/rokomari/:trackingNumber/:phone | GET | Fetch Rokomari parcel |
+| /track/sundarban/:trackingNumber | GET | Fetch Sundarban parcel |
+
+---
+
+# 🛡️ CORS Enabled
+
+CORS is enabled using:
+
 ```js
-const form = document.getElementById("trackerForm");
-
-form.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
-  const courier = document.getElementById("courier").value;
-  const trackingNumber = document.getElementById("trackingNumber").value.trim();
-  const phone = document.getElementById("phone").value.trim();
-
-  let response;
-
-  switch (courier) {
-    case "redx":
-      response = await fetch(`http://localhost:3000/redx/${trackingNumber}`);
-      response = await response.json();
-      break;
-    case "pathao":
-      response = await fetch("http://localhost:3000/pathao", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ tracking_number: trackingNumber, phone })
-      });
-      response = await response.json();
-      break;
-    // ...other couriers
-  }
-
-  document.getElementById("result").innerHTML = `<pre>${JSON.stringify(response, null, 2)}</pre>`;
-});
-
+app.use(cors());
 ```
 
-## Contributing
-- Fork the repository
-- Create a new branch for your feature
-- Submit a pull request
-- Make sure to test your changes locally
+---
 
-## License
-This project is licensed under the [MIT License](LICENSE).
+# 🚀 Production Notes
+
+- Use environment variables for PORT
+- Add validation middleware
+- Add error handling middleware
+- Secure endpoints if needed
+- Deploy backend separately (Render, Railway, VPS)
+- Deploy frontend separately (Vercel, Netlify)
+
+---
+
+# 📜 License
+
+MIT License
+
+---
+
+# 👨‍💻Developed using:
+
+- Node.js
+- Express.js
+- React (Vite)
+- bangladeshi-parcel-tracker
