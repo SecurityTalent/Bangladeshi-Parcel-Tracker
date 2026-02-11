@@ -7,11 +7,6 @@ A fully working Bangladeshi Parcel Tracker built with JavaScript (Node.js + HTML
 ## **NPM Package:** [bangladeshi-parcel-tracker](https://www.npmjs.com/package/bangladeshi-parcel-tracker)
 
 ---
-## 📦 Installation
-
-```bash
-npm install bangladeshi-parcel-tracker
-```
 
 # Features
 - 🚚 Track parcels from `Redx, Steadfast, Pathao, Rokomari, Sundarban`
